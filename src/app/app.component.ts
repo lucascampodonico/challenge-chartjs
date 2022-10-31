@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
         display: false,
       },
       onHover: (e, items) => {
-        this.pointHover(items); // OBTENEMOS CHART ELEMENT AL PASAR POR LOS PUNTOS
+        this.pointHover(items); // OBTENEMOS EL CHART ELEMENT AL PASAR POR LOS PUNTOS
       },
       hover: {
         mode: "nearest", // SOLO HACEMOS HOVER SOBRE EL PUNTO SEÑALADO
@@ -160,14 +160,13 @@ export class AppComponent implements OnInit {
   }
 
   pointHover(elements) {
-    console.log(elements);
     if (elements.length) {
       let element = elements;
       if (element[0]) {
         element = element[0];
         // GUARDAMOS EL PUNTO EN UNA VARIABLE
         const yPoint = element._model.y;
-        //LO ASOCIAMOS AL LABELITEM DEL EJE Y
+        //ASOCIAMOS EL EJE 5 DEL PUNTO AL LABELITEM DEL MISMO EJE
         const targetPoint = element._yScale._labelItems.reduce(function (
           previous,
           current
@@ -181,17 +180,18 @@ export class AppComponent implements OnInit {
         const xPointIndex = element._index;
         const xLabelItem = element._xScale._labelItems[xPointIndex];
         const pointColor = element._model.backgroundColor;
-        //CREAMOS LOS NUEVOS LABELS
+
+        //CREAMOS LOS NUEVOS LABELS QUE REEMPLAZARAN EN EL HOVER A LOS SELECCIONADOS
         const ctx = element._chart.ctx;
         const backgroundColor = "#1a1919";
         ctx.fillStyle = backgroundColor;
-        let width = ctx.measureText(targetPoint.label).width;
-        ctx.fillRect(targetPoint.x - 40, targetPoint.y - 5, width + 5, 15);
+        let widthLabel = ctx.measureText(targetPoint.label).width;
+        ctx.fillRect(targetPoint.x - 40, targetPoint.y - 5, widthLabel + 5, 15);
         ctx.fillStyle = pointColor;
         ctx.fillText(targetPoint.label, targetPoint.x - 40, targetPoint.y + 5);
-        width = ctx.measureText(xLabelItem.label).width;
+        widthLabel = ctx.measureText(xLabelItem.label).width;
         ctx.fillStyle = backgroundColor;
-        ctx.fillRect(xLabelItem.x - 10, xLabelItem.y, width + 5, 15);
+        ctx.fillRect(xLabelItem.x - 10, xLabelItem.y, widthLabel + 5, 15);
         ctx.fillStyle = pointColor;
         ctx.fillText(xLabelItem.label, xLabelItem.x - 7, xLabelItem.y + 8);
       }
