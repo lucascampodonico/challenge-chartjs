@@ -13,6 +13,9 @@
 💻 Instalación
 
 Clonar el proyecto en el espacio de trabajo con git.
+```bash
+git clone https://gitlab.com/lucascampodonico/challenge-chart-js.git
+```
 
 Despues instalar dependencias.
 ```bash
